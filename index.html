@@ -1,0 +1,2083 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Tinu ♡ — A Digital Gift from Keshu</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                forest: {
+                    50: "#effff4",
+                    100: "#d8f5e2",
+                    200: "#b2e8c5",
+                    300: "#82d39e",
+                    400: "#58b878",
+                    500: "#399657",
+                    600: "#287541",
+                    700: "#205d36",
+                    800: "#17472b",
+                    900: "#0b2b19"
+                }
+            },
+            fontFamily: {
+                sans: ["Arial", "sans-serif"],
+                serif: ["Georgia", "serif"]
+            }
+        }
+    }
+}
+</script>
+
+<style>
+
+/* =========================================================
+   MAIN THEME
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    color: #eafff0;
+    overflow-x: hidden;
+
+    background:
+        radial-gradient(circle at 15% 10%, rgba(61, 145, 87, 0.35), transparent 28%),
+        radial-gradient(circle at 85% 25%, rgba(36, 112, 64, 0.30), transparent 30%),
+        radial-gradient(circle at 50% 90%, rgba(28, 91, 52, 0.30), transparent 35%),
+        linear-gradient(135deg, #031008, #071b10 45%, #04120a);
+}
+
+/* =========================================================
+   PARTICLE CANVAS
+========================================================= */
+
+#particleCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* =========================================================
+   GLASS CARDS
+========================================================= */
+
+.glass-card {
+    background: rgba(8, 34, 20, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
+    border: 1px solid rgba(104, 206, 135, 0.20);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(160, 255, 190, 0.06);
+}
+
+.glass-card-sm {
+    background: rgba(13, 48, 28, 0.75);
+    backdrop-filter: blur(10px);
+
+    border: 1px solid rgba(104, 206, 135, 0.16);
+
+    transition: 0.3s ease;
+}
+
+.glass-card-sm:hover {
+    background: rgba(22, 70, 40, 0.85);
+    border-color: rgba(117, 224, 148, 0.45);
+    transform: translateY(-3px);
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.top-header {
+    background: rgba(3, 18, 10, 0.86);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(110, 220, 140, 0.15);
+}
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.green-title {
+    color: #a8ffc3;
+    text-shadow: 0 0 25px rgba(89, 220, 125, 0.25);
+}
+
+.soft-text {
+    color: #b7d8c2;
+}
+
+.muted-text {
+    color: #779986;
+}
+
+.glow-text {
+    color: #9affbd;
+    text-shadow: 0 0 18px rgba(110, 255, 150, 0.2);
+}
+
+/* =========================================================
+   PROGRESS BAR
+========================================================= */
+
+.progress-bg {
+    background: rgba(120, 180, 135, 0.12);
+}
+
+.progress-fill {
+    background: linear-gradient(
+        90deg,
+        #3d9658,
+        #8ee9a8
+    );
+    box-shadow: 0 0 15px rgba(92, 220, 125, 0.35);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.green-btn {
+    background: linear-gradient(
+        135deg,
+        #347e4b,
+        #245d37
+    );
+
+    border: 1px solid rgba(137, 239, 162, 0.25);
+
+    color: white;
+
+    transition: 0.3s ease;
+
+    box-shadow:
+        0 8px 25px rgba(25, 100, 50, 0.25);
+}
+
+.green-btn:hover {
+    background: linear-gradient(
+        135deg,
+        #43965c,
+        #2e7043
+    );
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 30px rgba(45, 150, 75, 0.35);
+}
+
+.back-btn {
+    background: rgba(80, 150, 100, 0.10);
+    border: 1px solid rgba(120, 210, 140, 0.18);
+    color: #a7d7b5;
+}
+
+.back-btn:hover {
+    background: rgba(80, 150, 100, 0.20);
+}
+
+/* =========================================================
+   PAGE ANIMATION
+========================================================= */
+
+.page-step {
+    display: none;
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.page-step.active {
+    display: block;
+    animation: pageIn 0.5s ease forwards;
+}
+
+@keyframes pageIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   FLOATING HEARTS
+========================================================= */
+
+.floating-symbol {
+    position: fixed;
+    color: rgba(126, 235, 155, 0.35);
+    pointer-events: none;
+    z-index: 2;
+    animation: floatUp 9s linear infinite;
+}
+
+@keyframes floatUp {
+
+    0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: translateY(-20vh) rotate(360deg);
+        opacity: 0;
+    }
+
+}
+
+/* =========================================================
+   LETTER
+========================================================= */
+
+.letter-box {
+    background: rgba(10, 39, 23, 0.65);
+    border-left: 3px solid #58b878;
+    box-shadow: inset 0 0 30px rgba(50, 150, 80, 0.04);
+}
+
+/* =========================================================
+   CHOICE BUTTONS
+========================================================= */
+
+.choice-btn {
+    background: rgba(255,255,255,0.025);
+    color: #c9ead2;
+    border: 1px solid rgba(120, 210, 145, 0.18);
+    transition: 0.25s ease;
+}
+
+.choice-btn:hover {
+    background: rgba(70, 160, 95, 0.18);
+    border-color: rgba(120, 220, 145, 0.4);
+}
+
+.choice-btn.selected {
+    background: #347e4b !important;
+    color: white !important;
+    border-color: #75d894 !important;
+    box-shadow: 0 0 20px rgba(70, 180, 100, 0.25);
+}
+
+/* =========================================================
+   SECRET BUTTON
+========================================================= */
+
+.danger-btn {
+    background: rgba(130, 40, 45, 0.65);
+    border: 1px solid rgba(255, 120, 120, 0.25);
+    color: #ffdede;
+    transition: 0.3s;
+}
+
+.danger-btn:hover {
+    background: rgba(165, 45, 50, 0.8);
+    transform: scale(1.04);
+}
+
+/* =========================================================
+   STORY
+========================================================= */
+
+.story-card {
+    background: rgba(11, 42, 24, 0.65);
+    border: 1px solid rgba(105, 200, 130, 0.15);
+}
+
+/* =========================================================
+   SONG LIST
+========================================================= */
+
+.song-row {
+    background: rgba(14, 50, 28, 0.65);
+    border: 1px solid rgba(110, 205, 135, 0.14);
+    transition: 0.3s;
+}
+
+.song-row:hover {
+    background: rgba(24, 72, 40, 0.85);
+    border-color: rgba(120, 220, 145, 0.35);
+    transform: translateX(3px);
+}
+
+.song-number {
+    background: rgba(72, 155, 92, 0.18);
+    color: #91e7a7;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-bg {
+    background: rgba(0, 10, 5, 0.78);
+    backdrop-filter: blur(8px);
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-track {
+    background: #04140b;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #28633a;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3d9658;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width: 600px) {
+
+    .glass-card {
+        border-radius: 22px;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- Floating background symbols -->
+
+<div class="floating-symbol" style="left:8%; animation-delay:0s;">♡</div>
+<div class="floating-symbol" style="left:25%; animation-delay:2s;">✦</div>
+<div class="floating-symbol" style="left:47%; animation-delay:4s;">♡</div>
+<div class="floating-symbol" style="left:70%; animation-delay:1s;">✦</div>
+<div class="floating-symbol" style="left:88%; animation-delay:5s;">♡</div>
+
+
+<!-- Particle Canvas -->
+
+<canvas id="particleCanvas"></canvas>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="top-header sticky top-0 z-30 w-full px-4 py-3">
+
+<div class="max-w-2xl mx-auto flex items-center gap-4">
+
+    <div class="hidden sm:block">
+        <span class="text-green-title font-serif text-xl font-bold">
+            For Tinu ♡
+        </span>
+    </div>
+
+    <div class="flex-1">
+
+        <div class="flex justify-between text-xs soft-text mb-1">
+
+            <span>
+                Step <span id="currentStepNum">1</span> of 9
+            </span>
+
+            <span id="pageTitleNav">
+                Welcome
+            </span>
+
+        </div>
+
+        <div class="w-full h-2 rounded-full progress-bg overflow-hidden">
+
+            <div
+                id="progressBar"
+                class="h-full progress-fill rounded-full transition-all duration-500"
+                style="width:11.11%;">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div
+        id="pageBadge"
+        class="bg-green-900 text-green-200 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-700">
+        1 / 9
+    </div>
+
+</div>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="max-w-2xl w-full mx-auto px-4 py-8 flex-1 relative z-20">
+
+
+<!-- =====================================================
+     PAGE 1
+===================================================== -->
+
+<section id="page-1" class="page-step active">
+
+<div class="glass-card rounded-3xl p-8 text-center relative overflow-hidden">
+
+    <div class="absolute -top-20 -right-20 w-48 h-48 bg-green-500/10 rounded-full blur-3xl"></div>
+
+    <div class="absolute -bottom-20 -left-20 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl"></div>
+
+
+    <div class="text-5xl mb-5">
+        🌿
+    </div>
+
+
+    <span class="block text-xs font-bold uppercase tracking-widest text-green-400 mb-3">
+        A Tiny Digital Gift
+    </span>
+
+
+    <h1 class="font-serif text-5xl sm:text-6xl font-bold green-title mb-4">
+        For Tinu ♡
+    </h1>
+
+
+    <p class="soft-text text-base sm:text-lg mb-7 leading-relaxed">
+        Something made especially for you,
+        <br>
+        step by step, from
+        <strong class="text-green-300">
+            Keshu
+        </strong>.
+    </p>
+
+
+    <div class="my-7 p-5 rounded-2xl bg-black/20 border border-green-800/40 text-left">
+
+        <div class="flex items-center gap-2 font-semibold text-green-300 mb-3">
+            ✨ What awaits you:
+        </div>
+
+        <ul class="space-y-2 text-sm text-green-100/70">
+
+            <li>♡ A message I wanted to say properly</li>
+
+            <li>⚔️ Anime surprises</li>
+
+            <li>🎮 Interactive quizzes</li>
+
+            <li>🎧 A 10-song soundtrack</li>
+
+            <li>🌌 A tiny anime-style story</li>
+
+            <li>💚 A final surprise</li>
+
+        </ul>
+
+    </div>
+
+
+    <button
+        onclick="nextPage()"
+        class="green-btn px-8 py-4 rounded-2xl font-semibold">
+
+        Begin Journey →
+    
+    </button>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 2
+===================================================== -->
+
+<section id="page-2" class="page-step">
+
+<div class="glass-card rounded-3xl p-6 sm:p-8">
+
+    <div class="border-b border-green-800/40 pb-4 mb-6">
+
+        <span class="text-xs font-bold uppercase tracking-wider text-green-400">
+            01 — Something I wanted to say
+        </span>
+
+        <h2 class="font-serif text-3xl font-bold green-title">
+            For you, Tinu 🌿
+        </h2>
+
+    </div>
+
+
+    <div class="letter-box rounded-2xl p-5 space-y-5 text-green-100/80 leading-relaxed">
+
+        <p>
+            Tinu, I wanted to say this properly instead of
+            letting a misunderstanding become something bigger.
+        </p>
+
+
+        <p>
+            I'm sorry for what I said. When I said
+            <span class="text-green-300 italic">
+                "shayad aap jaane ki firaak mein ho"
+            </span>,
+            I didn't mean that I actually think you want to leave
+            or that you're like the people who left before.
+        </p>
+
+
+        <p>
+            I think I let my own fear speak for me,
+            and I understand why those words could hurt.
+        </p>
+
+
+        <p>
+            You shouldn't have to keep proving that you care.
+            I appreciate what we have, even with the distance.
+        </p>
+
+
+        <p>
+            I just want us to be able to talk about things
+            instead of letting one misunderstanding turn into
+            something bigger.
+        </p>
+
+
+        <p class="glow-text font-medium">
+            And yes... I probably should have said all of this
+            properly in the first place. ♡
+        </p>
+
+    </div>
+
+
+    <div class="flex justify-between mt-7 pt-4 border-t border-green-800/40">
+
+        <button
+            onclick="prevPage()"
+            class="back-btn px-5 py-3 rounded-xl text-sm">
+            ← Back
+        </button>
+
+
+        <button
+            onclick="nextPage()"
+            class="green-btn px-5 py-3 rounded-xl text-sm">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 3 — ANIME
+===================================================== -->
+
+<section id="page-3" class="page-step">
+
+<div class="glass-card rounded-3xl p-6 sm:p-8">
+
+    <div class="border-b border-green-800/40 pb-4 mb-6">
+
+        <span class="text-xs font-bold uppercase tracking-wider text-green-400">
+            02 — Cute Reminders
+        </span>
+
+        <h2 class="font-serif text-3xl font-bold green-title">
+            Anime Squad 🛡️
+        </h2>
+
+        <p class="text-sm muted-text mt-2">
+            Tap a character for a tiny message.
+        </p>
+
+    </div>
+
+
+    <h3 class="text-xs uppercase tracking-widest text-green-400 font-bold mb-3">
+        🥦 My Hero Academia
+    </h3>
+
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+
+
+        <div
+            onclick="speakHero('Deku says: Stay strong Tinu! You have got this!')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl mb-2">
+                🥦
+            </div>
+
+            <b class="text-green-200">
+                Deku
+            </b>
+
+            <p class="text-xs muted-text mt-1">
+                Keep going!
+            </p>
+
+        </div>
+
+
+        <div
+            onclick="speakHero('Tsu says: Take a deep breath and stay calm, ribbit!')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl mb-2">
+                🐸
+            </div>
+
+            <b class="text-green-200">
+                Tsu
+            </b>
+
+            <p class="text-xs muted-text mt-1">
+                Stay calm.
+            </p>
+
+        </div>
+
+
+        <div
+            onclick="speakHero('Ochaco says: Float away all the bad thoughts!')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl mb-2">
+                🌸
+            </div>
+
+            <b class="text-green-200">
+                Ochaco
+            </b>
+
+            <p class="text-xs muted-text mt-1">
+                Good vibes!
+            </p>
+
+        </div>
+
+
+        <div
+            onclick="speakHero('Todoroki says: Stay steady and keep your head clear.')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl mb-2">
+                ❄️🔥
+            </div>
+
+            <b class="text-green-200">
+                Todoroki
+            </b>
+
+            <p class="text-xs muted-text mt-1">
+                Stay steady.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <h3 class="text-xs uppercase tracking-widest text-green-400 font-bold mb-3">
+        ⚔️ Attack on Titan
+    </h3>
+
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+
+
+        <div
+            onclick="speakHero('Eren says: Keep moving forward, Tinu!')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl">
+                🕊️
+            </div>
+
+            <b class="text-green-200">
+                Eren
+            </b>
+
+        </div>
+
+
+        <div
+            onclick="speakHero('Mikasa says: Protect your peace and keep smiling.')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl">
+                🧣
+            </div>
+
+            <b class="text-green-200">
+                Mikasa
+            </b>
+
+        </div>
+
+
+        <div
+            onclick="speakHero('Levi says: Tch. Keep your head high.')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl">
+                🧹
+            </div>
+
+            <b class="text-green-200">
+                Levi
+            </b>
+
+        </div>
+
+
+        <div
+            onclick="speakHero('Armin says: There is always something beautiful beyond the wall.')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl">
+                🐚
+            </div>
+
+            <b class="text-green-200">
+                Armin
+            </b>
+
+        </div>
+
+
+        <div
+            onclick="speakHero('Sasha says: Did someone say potato?')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl">
+                🥔
+            </div>
+
+            <b class="text-green-200">
+                Sasha
+            </b>
+
+        </div>
+
+
+        <div
+            onclick="speakHero('Erwin says: Dedicate your heart to the good moments.')"
+            class="glass-card-sm p-4 rounded-2xl text-center cursor-pointer">
+
+            <div class="text-4xl">
+                📜
+            </div>
+
+            <b class="text-green-200">
+                Erwin
+            </b>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="animeToast"
+        class="hidden mt-5 bg-green-700 p-3 rounded-xl text-sm text-white text-center">
+    </div>
+
+
+    <div class="flex justify-between mt-7 pt-4 border-t border-green-800/40">
+
+        <button
+            onclick="prevPage()"
+            class="back-btn px-5 py-3 rounded-xl text-sm">
+            ← Back
+        </button>
+
+        <button
+            onclick="nextPage()"
+            class="green-btn px-5 py-3 rounded-xl text-sm">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 4 — AOT SURVEY
+===================================================== -->
+
+<section id="page-4" class="page-step">
+
+<div class="glass-card rounded-3xl p-6 sm:p-8">
+
+    <span class="text-xs uppercase tracking-widest text-green-400 font-bold">
+        03 — AoT Tactical Survey
+    </span>
+
+    <h2 class="font-serif text-3xl green-title font-bold mb-2">
+        ⚔️ Survival Decisions
+    </h2>
+
+    <p class="muted-text text-sm mb-6">
+        Choose your imaginary Scout Headquarters decisions.
+    </p>
+
+
+    <div class="space-y-6">
+
+
+        <div>
+
+            <p class="text-green-200 font-bold text-sm mb-2">
+                1. Which regiment?
+            </p>
+
+            <div class="grid grid-cols-3 gap-2">
+
+                <button onclick="selectAoT(this,'regiment','Scouts 🪽')" class="choice-btn p-3 rounded-xl text-xs">
+                    Scouts 🪽
+                </button>
+
+                <button onclick="selectAoT(this,'regiment','Garrison 🧱')" class="choice-btn p-3 rounded-xl text-xs">
+                    Garrison 🧱
+                </button>
+
+                <button onclick="selectAoT(this,'regiment','Military Police 👑')" class="choice-btn p-3 rounded-xl text-xs">
+                    Police 👑
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <p class="text-green-200 font-bold text-sm mb-2">
+                2. Which Titan ability?
+            </p>
+
+            <div class="grid grid-cols-2 gap-2">
+
+                <button onclick="selectAoT(this,'titan','Jaw Titan ⚡')" class="choice-btn p-3 rounded-xl text-xs">
+                    Jaw Titan ⚡
+                </button>
+
+                <button onclick="selectAoT(this,'titan','War Hammer 🛡️')" class="choice-btn p-3 rounded-xl text-xs">
+                    War Hammer 🛡️
+                </button>
+
+                <button onclick="selectAoT(this,'titan','Attack Titan 🕊️')" class="choice-btn p-3 rounded-xl text-xs">
+                    Attack Titan 🕊️
+                </button>
+
+                <button onclick="selectAoT(this,'titan','Cart Titan 🎒')" class="choice-btn p-3 rounded-xl text-xs">
+                    Cart Titan 🎒
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div>
+
+            <p class="text-green-200 font-bold text-sm mb-2">
+                3. Your mentor?
+            </p>
+
+            <div class="grid grid-cols-3 gap-2">
+
+                <button onclick="selectAoT(this,'mentor','Levi 🧹')" class="choice-btn p-3 rounded-xl text-xs">
+                    Levi 🧹
+                </button>
+
+                <button onclick="selectAoT(this,'mentor','Erwin 📜')" class="choice-btn p-3 rounded-xl text-xs">
+                    Erwin 📜
+                </button>
+
+                <button onclick="selectAoT(this,'mentor','Hange 🔬')" class="choice-btn p-3 rounded-xl text-xs">
+                    Hange 🔬
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="aotSummaryBox"
+        class="hidden mt-6 p-4 rounded-2xl bg-green-900/60 border border-green-700/40 text-sm text-green-200">
+
+        <b class="text-green-300">
+            📋 Scout Dossier
+        </b>
+
+        <p id="aotRegimentSummary">
+            Regiment: -
+        </p>
+
+        <p id="aotTitanSummary">
+            Titan: -
+        </p>
+
+        <p id="aotMentorSummary">
+            Mentor: -
+        </p>
+
+    </div>
+
+
+    <div class="flex justify-between mt-7 pt-4 border-t border-green-800/40">
+
+        <button onclick="prevPage()" class="back-btn px-5 py-3 rounded-xl text-sm">
+            ← Back
+        </button>
+
+        <button onclick="nextPage()" class="green-btn px-5 py-3 rounded-xl text-sm">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 5 — SONGS
+===================================================== -->
+
+<section id="page-5" class="page-step">
+
+<div class="glass-card rounded-3xl p-6 sm:p-8">
+
+    <span class="text-xs uppercase tracking-widest text-green-400 font-bold">
+        04 — Our Soundtrack
+    </span>
+
+    <h2 class="font-serif text-3xl green-title font-bold">
+        🎧 10 Songs for Tinu
+    </h2>
+
+    <p class="muted-text text-sm mb-5">
+        Click ▶ Play to find the song on YouTube.
+    </p>
+
+
+    <div class="space-y-3 max-h-[430px] overflow-y-auto pr-1">
+
+
+        <script>
+        const songs = [
+            ["Hamse Jo Ruth Gai Ho", "For when words get complicated", "Hamse Jo Ruth Gai Ho Arpit Bala"],
+            ["Haareya", "A soft soundtrack for feelings", "Haareya Arijit Singh"],
+            ["Haule Haule", "Slow moments and warm memories", "Haule Haule Rab Ne Bana Di Jodi"],
+            ["Maula Mere Maula", "For the quieter mood", "Maula Mere Maula Roop Kumar Rathod"],
+            ["Jeene Laga Hoon", "A little brighter", "Jeene Laga Hoon Atif Aslam"],
+            ["Aarzu", "One for the playlist", "Aarzu song"],
+            ["Dil Ka Jo Haal Hai", "Because the title says enough", "Dil Ka Jo Haal Hai Besharam"],
+            ["Enna Sona", "A warm little corner", "Enna Sona Arijit Singh"],
+            ["Yeh Fitoor Mera", "For the dramatic anime moment", "Yeh Fitoor Mera Arijit Singh"],
+            ["Are Are Are", "Every playlist needs something playful", "Are Are Are Makkhi song"]
+        ];
+
+        document.write(
+            songs.map((song, index) => `
+                <div class="song-row p-3 rounded-2xl flex items-center justify-between gap-3">
+
+                    <div class="flex items-center gap-3 min-w-0">
+
+                        <span class="song-number w-8 h-8 shrink-0 rounded-full flex items-center justify-center text-xs font-bold">
+                            ${String(index + 1).padStart(2,"0")}
+                        </span>
+
+                        <div class="min-w-0">
+
+                            <h4 class="font-bold text-green-100 text-sm truncate">
+                                ${song[0]}
+                            </h4>
+
+                            <p class="text-xs muted-text truncate">
+                                ${song[1]}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <button
+                        onclick="playSong('${song[2]}')"
+                        class="green-btn shrink-0 px-3 py-2 rounded-xl text-xs font-semibold">
+                        ▶ Play
+                    </button>
+
+                </div>
+            `).join("")
+        );
+        </script>
+
+
+    </div>
+
+
+    <div class="mt-7 flex justify-between pt-4 border-t border-green-800/40">
+
+        <button onclick="prevPage()" class="back-btn px-5 py-3 rounded-xl text-sm">
+            ← Back
+        </button>
+
+        <button onclick="nextPage()" class="green-btn px-5 py-3 rounded-xl text-sm">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 6 — QUIZ
+===================================================== -->
+
+<section id="page-6" class="page-step">
+
+<div class="glass-card rounded-3xl p-6 sm:p-8">
+
+    <span class="text-xs uppercase tracking-widest text-green-400 font-bold">
+        05 — Essential Questions
+    </span>
+
+    <h2 class="font-serif text-3xl green-title font-bold">
+        🎮 Choose One
+    </h2>
+
+    <p class="muted-text text-sm mb-5">
+        10 extremely important questions.
+    </p>
+
+
+    <div class="space-y-4 max-h-[450px] overflow-y-auto pr-1">
+
+
+        <script>
+
+        const quizQuestions = [
+
+            ["Treats & Sweets","Chocolate 🍫","Flowers 🌷"],
+
+            ["Daily Chat","Call 📞","Text 💬"],
+
+            ["Time of Day","Night 🌙","Morning ☀️"],
+
+            ["Weather","Rainy Days 🌧️","Sunny Days ☀️"],
+
+            ["Snack","Sweet Treats 🍰","Savory Snacks 🍕"],
+
+            ["Hangout","Long Walks 🎧","Cozy Movies 🎬"],
+
+            ["Plans","Early Plans 🗓️","Spontaneous 🚗"],
+
+            ["Comfort Drink","Chai ☕","Coffee ☕"],
+
+            ["Golden Hour","Sunset 🌅","Sunrise 🌄"],
+
+            ["Comfort","Holding Hands 🤝","Warm Hugs 🫂"]
+
+        ];
+
+
+        document.write(
+
+            quizQuestions.map((q,i) => `
+
+                <div class="bg-black/15 p-4 rounded-2xl border border-green-800/30">
+
+                    <p class="text-green-200 font-bold text-sm mb-3">
+                        ${i+1}. ${q[0]}
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-2">
+
+                        <button
+                            onclick="pickQuiz(this,${i},'${q[1]}')"
+                            class="choice-btn p-3 rounded-xl text-xs">
+                            ${q[1]}
+                        </button>
+
+                        <button
+                            onclick="pickQuiz(this,${i},'${q[2]}')"
+                            class="choice-btn p-3 rounded-xl text-xs">
+                            ${q[2]}
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `).join("")
+
+        );
+
+        </script>
+
+    </div>
+
+
+    <div class="mt-4 p-3 bg-green-900/50 border border-green-800 rounded-xl text-center text-sm text-green-200">
+
+        Choices completed:
+        <b id="quizCount">0</b>
+        / 10
+
+    </div>
+
+
+    <div class="flex justify-between mt-6 pt-4 border-t border-green-800/40">
+
+        <button onclick="prevPage()" class="back-btn px-5 py-3 rounded-xl text-sm">
+            ← Back
+        </button>
+
+        <button onclick="nextPage()" class="green-btn px-5 py-3 rounded-xl text-sm">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 7 — SECRET
+===================================================== -->
+
+<section id="page-7" class="page-step">
+
+<div class="glass-card rounded-3xl p-8 text-center">
+
+    <span class="text-xs uppercase tracking-widest text-green-400 font-bold">
+        06 — Definitely Don't Do This
+    </span>
+
+    <h2 class="font-serif text-3xl green-title font-bold mt-2">
+        ⚠️ Top Secret Area
+    </h2>
+
+
+    <div class="py-10">
+
+        <div class="text-7xl mb-6">
+            🚫
+        </div>
+
+        <p class="soft-text max-w-md mx-auto mb-7">
+            There is absolutely nothing suspicious here.
+            Please don't press the big shiny button.
+        </p>
+
+
+        <button
+            onclick="triggerSecretPopup()"
+            class="danger-btn px-8 py-4 rounded-2xl font-bold">
+
+            🚫 DON'T CLICK THIS
+
+        </button>
+
+    </div>
+
+
+    <div class="flex justify-between pt-5 border-t border-green-800/40">
+
+        <button onclick="prevPage()" class="back-btn px-5 py-3 rounded-xl text-sm">
+            ← Back
+        </button>
+
+        <button onclick="nextPage()" class="green-btn px-5 py-3 rounded-xl text-sm">
+            Next →
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 8 — STORY
+===================================================== -->
+
+<section id="page-8" class="page-step">
+
+<div class="glass-card rounded-3xl p-6 sm:p-8">
+
+    <span class="text-xs uppercase tracking-widest text-green-400 font-bold">
+        07 — If This Were An Anime
+    </span>
+
+    <h2 class="font-serif text-3xl green-title font-bold mb-6">
+        🌌 Two Worlds
+    </h2>
+
+
+    <div class="space-y-4">
+
+
+        <div class="story-card p-5 rounded-2xl flex gap-4">
+
+            <span class="text-3xl">
+                🏙️
+            </span>
+
+            <p class="soft-text leading-relaxed">
+                There were two people living far apart.
+                Their days happened in different places,
+                under different skies.
+            </p>
+
+        </div>
+
+
+        <div class="story-card p-5 rounded-2xl flex gap-4">
+
+            <span class="text-3xl">
+                📱
+            </span>
+
+            <p class="soft-text leading-relaxed">
+                Somehow, between random conversations,
+                songs, late messages and stupid jokes,
+                their worlds slowly started overlapping.
+            </p>
+
+        </div>
+
+
+        <div class="story-card p-5 rounded-2xl flex gap-4">
+
+            <span class="text-3xl">
+                🌱
+            </span>
+
+            <p class="soft-text leading-relaxed">
+                The distance didn't disappear.
+                It was still there.
+                But being far away didn't automatically
+                make every moment less important.
+            </p>
+
+        </div>
+
+
+        <div class="letter-box p-5 rounded-2xl">
+
+            <p class="glow-text font-medium">
+                And maybe that's what makes the little moments
+                worth remembering. ♡
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="flex justify-between mt-7 pt-4 border-t border-green-800/40">
+
+        <button onclick="prevPage()" class="back-btn px-5 py-3 rounded-xl text-sm">
+            ← Back
+        </button>
+
+        <button onclick="nextPage()" class="green-btn px-5 py-3 rounded-xl text-sm">
+            Final Note →
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     PAGE 9 — FINAL
+===================================================== -->
+
+<section id="page-9" class="page-step">
+
+<div class="glass-card rounded-3xl p-7 sm:p-9 text-center relative overflow-hidden">
+
+
+    <div class="absolute inset-0 pointer-events-none">
+
+        <div class="absolute top-0 left-0 w-40 h-40 bg-green-500/10 rounded-full blur-3xl"></div>
+
+        <div class="absolute bottom-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+
+    </div>
+
+
+    <span class="relative text-xs uppercase tracking-widest text-green-400 font-bold">
+        08 — One Last Thing
+    </span>
+
+
+    <h2 class="relative font-serif text-4xl green-title font-bold mt-3 mb-7">
+        💚 Tinu
+    </h2>
+
+
+    <div class="relative text-left max-w-lg mx-auto space-y-5 soft-text leading-relaxed">
+
+        <p>
+            I don't want this to be another promise made
+            in the middle of an argument.
+        </p>
+
+        <p>
+            I just wanted to make something that shows
+            I care enough to actually sit down and make it.
+        </p>
+
+        <p>
+            Something small, but made specifically for you.
+        </p>
+
+    </div>
+
+
+    <div class="relative mt-8 p-5 rounded-2xl bg-green-900/50 border border-green-700/40">
+
+        <h3 class="text-green-300 font-bold mb-4">
+            🎁 Pick your virtual gift
+        </h3>
+
+
+        <div class="flex flex-wrap justify-center gap-3">
+
+
+            <button
+                onclick="claimGift('Fresh Flowers 🌸')"
+                class="choice-btn px-4 py-3 rounded-xl text-sm">
+                🌸 Flowers
+            </button>
+
+
+            <button
+                onclick="claimGift('Box of Chocolates 🍫')"
+                class="choice-btn px-4 py-3 rounded-xl text-sm">
+                🍫 Chocolate
+            </button>
+
+
+            <button
+                onclick="claimGift('Warm Hug 🫂')"
+                class="choice-btn px-4 py-3 rounded-xl text-sm">
+                🫂 Hug
+            </button>
+
+
+        </div>
+
+
+        <p
+            id="giftClaimedText"
+            class="hidden mt-4 text-green-300 font-semibold text-sm">
+        </p>
+
+    </div>
+
+
+    <div class="relative text-right mt-8 font-serif italic text-2xl text-green-300">
+
+        — Keshu ♡
+
+    </div>
+
+
+    <div class="relative flex justify-between mt-8 pt-5 border-t border-green-800/40">
+
+        <button
+            onclick="prevPage()"
+            class="back-btn px-5 py-3 rounded-xl text-sm">
+            ← Back
+        </button>
+
+
+        <button
+            onclick="restartJourney()"
+            class="green-btn px-5 py-3 rounded-xl text-sm">
+            🔄 Replay
+        </button>
+
+    </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="relative z-20 text-center py-6 text-xs text-green-700">
+
+    Made with time, effort & a little green magic 🌿
+
+</footer>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+    id="modalOverlay"
+    class="modal-bg fixed inset-0 z-50 hidden items-center justify-center p-5">
+
+    <div class="glass-card rounded-3xl p-7 max-w-sm w-full text-center">
+
+        <div
+            id="modalEmoji"
+            class="text-5xl mb-4">
+            ✨
+        </div>
+
+
+        <h3
+            id="modalTitle"
+            class="font-serif text-2xl font-bold green-title mb-3">
+            Notice
+        </h3>
+
+
+        <p
+            id="modalText"
+            class="soft-text text-sm leading-relaxed mb-6">
+        </p>
+
+
+        <button
+            onclick="closeModal()"
+            class="green-btn w-full py-3 rounded-xl font-semibold">
+            Close ♡
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
+
+const pageTitles = [
+    "Welcome",
+    "Apology Letter",
+    "Anime Squads",
+    "AoT Survey",
+    "Soundtrack",
+    "Love Quiz",
+    "Secret Area",
+    "Anime Story",
+    "Final Note"
+];
+
+let currentPage = 1;
+
+const totalPages = 9;
+
+
+function updatePageUI() {
+
+    for (let i = 1; i <= totalPages; i++) {
+
+        const page = document.getElementById("page-" + i);
+
+        if (page) {
+            page.classList.remove("active");
+        }
+
+    }
+
+
+    const activePage =
+        document.getElementById("page-" + currentPage);
+
+    if (activePage) {
+        activePage.classList.add("active");
+    }
+
+
+    const progress =
+        (currentPage / totalPages) * 100;
+
+
+    document.getElementById("progressBar").style.width =
+        progress + "%";
+
+
+    document.getElementById("currentStepNum").innerText =
+        currentPage;
+
+
+    document.getElementById("pageTitleNav").innerText =
+        pageTitles[currentPage - 1];
+
+
+    document.getElementById("pageBadge").innerText =
+        currentPage + " / " + totalPages;
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+function nextPage() {
+
+    if (currentPage < totalPages) {
+
+        currentPage++;
+
+        updatePageUI();
+
+    }
+
+}
+
+
+function prevPage() {
+
+    if (currentPage > 1) {
+
+        currentPage--;
+
+        updatePageUI();
+
+    }
+
+}
+
+
+function restartJourney() {
+
+    currentPage = 1;
+
+    updatePageUI();
+
+    confetti({
+        particleCount: 80,
+        spread: 70,
+        origin: {
+            y: 0.6
+        }
+    });
+
+}
+
+
+/* =====================================================
+   ANIME MESSAGE
+===================================================== */
+
+function speakHero(text) {
+
+    const toast =
+        document.getElementById("animeToast");
+
+    toast.innerText = text;
+
+    toast.classList.remove("hidden");
+
+
+    setTimeout(() => {
+
+        toast.classList.add("hidden");
+
+    }, 3500);
+
+}
+
+
+/* =====================================================
+   AOT SURVEY
+===================================================== */
+
+const aotSelection = {
+    regiment: "",
+    titan: "",
+    mentor: ""
+};
+
+
+function selectAoT(button, category, choice) {
+
+    const parent = button.parentElement;
+
+    const buttons =
+        parent.querySelectorAll(".choice-btn");
+
+    buttons.forEach(btn => {
+
+        btn.classList.remove("selected");
+
+    });
+
+
+    button.classList.add("selected");
+
+
+    aotSelection[category] = choice;
+
+
+    document
+        .getElementById("aotSummaryBox")
+        .classList.remove("hidden");
+
+
+    if (category === "regiment") {
+
+        document.getElementById(
+            "aotRegimentSummary"
+        ).innerText =
+            "Regiment: " + choice;
+
+    }
+
+
+    if (category === "titan") {
+
+        document.getElementById(
+            "aotTitanSummary"
+        ).innerText =
+            "Titan: " + choice;
+
+    }
+
+
+    if (category === "mentor") {
+
+        document.getElementById(
+            "aotMentorSummary"
+        ).innerText =
+            "Mentor: " + choice;
+
+    }
+
+}
+
+
+/* =====================================================
+   SONG PLAYER
+===================================================== */
+
+function playSong(song) {
+
+    const encoded =
+        encodeURIComponent(song);
+
+    window.open(
+        "https://www.youtube.com/results?search_query=" +
+        encoded,
+        "_blank"
+    );
+
+}
+
+
+/* =====================================================
+   LOVE QUIZ
+===================================================== */
+
+const quizAnswers = {};
+
+
+function pickQuiz(button, round, answer) {
+
+    const parent =
+        button.parentElement;
+
+
+    const buttons =
+        parent.querySelectorAll(".choice-btn");
+
+
+    buttons.forEach(btn => {
+
+        btn.classList.remove("selected");
+
+    });
+
+
+    button.classList.add("selected");
+
+
+    quizAnswers[round] = answer;
+
+
+    const count =
+        Object.keys(quizAnswers).length;
+
+
+    document.getElementById("quizCount").innerText =
+        count;
+
+
+    if (count === 10) {
+
+        confetti({
+
+            particleCount: 50,
+
+            spread: 60
+
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+   SECRET BUTTON
+===================================================== */
+
+function triggerSecretPopup() {
+
+    showModal(
+        "I KNEW IT 😂",
+        "The button literally told you not to click it.",
+        "🚫"
+    );
+
+
+    confetti({
+
+        particleCount: 100,
+
+        spread: 80,
+
+        origin: {
+            y: 0.6
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   GIFT
+===================================================== */
+
+function claimGift(gift) {
+
+    const text =
+        document.getElementById("giftClaimedText");
+
+
+    text.innerText =
+        "✨ You claimed: " +
+        gift +
+        " — sent with love from Keshu ♡";
+
+
+    text.classList.remove("hidden");
+
+
+    confetti({
+
+        particleCount: 90,
+
+        spread: 80,
+
+        origin: {
+            y: 0.7
+        }
+
+    });
+
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+function showModal(title, text, emoji) {
+
+    document.getElementById("modalTitle").innerText =
+        title;
+
+
+    document.getElementById("modalText").innerText =
+        text;
+
+
+    document.getElementById("modalEmoji").innerText =
+        emoji;
+
+
+    const modal =
+        document.getElementById("modalOverlay");
+
+
+    modal.classList.remove("hidden");
+
+    modal.classList.add("flex");
+
+}
+
+
+function closeModal() {
+
+    const modal =
+        document.getElementById("modalOverlay");
+
+
+    modal.classList.add("hidden");
+
+    modal.classList.remove("flex");
+
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+
+const canvas =
+    document.getElementById("particleCanvas");
+
+const ctx =
+    canvas.getContext("2d");
+
+
+let particles = [];
+
+
+function resizeCanvas() {
+
+    canvas.width =
+        window.innerWidth;
+
+    canvas.height =
+        window.innerHeight;
+
+}
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+resizeCanvas();
+
+
+class Particle {
+
+    constructor() {
+
+        this.reset();
+
+        this.y =
+            Math.random() *
+            canvas.height;
+
+    }
+
+
+    reset() {
+
+        this.x =
+            Math.random() *
+            canvas.width;
+
+        this.y =
+            -20;
+
+        this.size =
+            Math.random() * 5 + 3;
+
+        this.speed =
+            Math.random() * 0.7 + 0.3;
+
+        this.wind =
+            Math.random() * 0.5 - 0.25;
+
+        this.alpha =
+            Math.random() * 0.35 + 0.1;
+
+    }
+
+
+    update() {
+
+        this.y += this.speed;
+
+        this.x += this.wind;
+
+        if (this.y > canvas.height + 20) {
+
+            this.reset();
+
+        }
+
+    }
+
+
+    draw() {
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            "rgba(120, 220, 145, " +
+            this.alpha +
+            ")";
+
+        ctx.arc(
+            this.x,
+            this.y,
+            this.size,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+    }
+
+}
+
+
+for (let i = 0; i < 30; i++) {
+
+    particles.push(
+        new Particle()
+    );
+
+}
+
+
+function animateParticles() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+
+    particles.forEach(particle => {
+
+        particle.update();
+
+        particle.draw();
+
+    });
+
+
+    requestAnimationFrame(
+        animateParticles
+    );
+
+}
+
+
+animateParticles();
+
+
+/* =====================================================
+   START
+===================================================== */
+
+updatePageUI();
+
+</script>
+
+</body>
+</html>
+```
